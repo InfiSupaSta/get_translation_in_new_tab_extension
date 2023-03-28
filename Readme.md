@@ -8,5 +8,5 @@ project directory.
 
 Highlight some text in your browser that you want to translate,
 press `ctrl` + `alt` and new tab will be opened with
-translation. By default, for EN to RU language but you can change it
+translation. By default, from EN to RU language but you can change it
 in `script.js` module.
