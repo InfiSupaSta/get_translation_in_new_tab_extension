@@ -1,14 +1,30 @@
 const googleTranslateUrl = new URL('https://translate.google.com/?')
+const googleSearchUrl = new URL('https://google.com/search?')
 
-function openTranslationInNewTab(text, from = 'en', to = 'ru') {
+function formUrlForSearch(text) {
 
     /*
-    Opens translate tab with highlighted text for
-    getting translation. By default, returns
-    translation from En to Ru language.
+    Forms URL with highlighted text as query param
+    for searching.
+    */
+
+    return googleSearchUrl + new URLSearchParams(
+        {
+            'q': text
+        }
+    )
+
+}
+
+function formUrlForTranslate(text, from = 'en', to = 'ru') {
+
+    /*
+    Forms URL with highlighted text as query param
+    for translating. By default, translation from
+    En to Ru language.
      */
 
-    const urlWithTextAsQueryParam = googleTranslateUrl + new URLSearchParams(
+    return googleTranslateUrl + new URLSearchParams(
         {
             'sl': from,
             'tl': to,
@@ -17,7 +33,6 @@ function openTranslationInNewTab(text, from = 'en', to = 'ru') {
         }
     )
 
-    window.open(urlWithTextAsQueryParam)
 }
 
 function getHighlightedText() {
@@ -29,19 +44,31 @@ function getHighlightedText() {
     if (window.getSelection().toString().length) {
         return window.getSelection().toString()
     }
+
+}
+
+function openInNewTab(url) {
+    window.open(url)
 }
 
 window.onkeydown = (event) => {
 
     /*
-    Translation will be opened in new tab if some
+    Translation tab will be opened in new tab if some
     text highlighted and ctrl+alt are pressed in
-    the same time.
+    the same time, search tab in case of shift+alt.
      */
 
     const highlightedText = getHighlightedText()
 
-    if (event.ctrlKey && event.altKey && highlightedText) {
-        openTranslationInNewTab(highlightedText)
+    if (highlightedText && event.altKey && event.shiftKey) {
+        const url = formUrlForSearch(highlightedText)
+        openInNewTab(url)
     }
+
+    if (highlightedText && event.ctrlKey && event.altKey ) {
+        const url = formUrlForTranslate(highlightedText)
+        openInNewTab(url)
+    }
+
 }

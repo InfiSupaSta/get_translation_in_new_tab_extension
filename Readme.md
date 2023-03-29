@@ -6,7 +6,11 @@ project directory.
 
 `How to use`
 
-Highlight some text in your browser that you want to translate,
-press `ctrl` + `alt` and new tab will be opened with
-translation. By default, for EN to RU language but you can change it
+Highlight some text in your browser that you want to translate/search,
+then press 
+
+- `ctrl` + `alt` for getting translation   
+- `shift`+ `alt` for searching.
+
+By default, for EN to RU language but you can change it
 in `script.js` module.
